@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>子どもを持つこと、ペットを飼うこと、肉を食べること</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!--
+  ════════════════════════════════════════════
+  【フォントの変更方法】
+  
+  ① Google Fonts URL（この行）を差し替える
+     例: family=Zen+Kaku+Gothic+New:wght@200;300;400
+     URL: https://fonts.google.com/ で検索してください
+  
+  ② body の font-family（CSS内 "body {}" ブロック）を変更
+     現在: 'Noto Sans JP'（本文・ナビ）
+     変更例: 'Zen Kaku Gothic New', sans-serif
+  
+  ③ 見出し・英字フォントは font-family: 'Cormorant Garamond'（CSS内）
+     英字セリフ体。変更例: 'EB Garamond', serif
+  
+  ④ 日本語見出し（タイトル・コンセプト文）は font-family: 'Noto Serif JP'
+     変更例: 'Zen Old Mincho', serif
+  ════════════════════════════════════════════
+  -->
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@200;300;400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --white: #fafaf8;
+      --ink: #1a1a18;
+      --ink-light: #5a5a55;
+      --ink-xlight: #aaaaaa;
+      --accent-pink: rgba(230, 170, 160, 0.35);
+      --accent-blue: rgba(160, 195, 210, 0.35);
+      --accent-lavender: rgba(190, 175, 210, 0.30);
+      --accent-yellow: rgba(240, 220, 150, 0.30);
+      --border: rgba(26,26,24,0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: 'Noto Sans JP', 'Yu Gothic', 'YuGothic', sans-serif;
+      font-weight: 300;
+      line-height: 1.9;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      background: rgba(250,250,248,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.4s;
+    }
+    nav.scrolled { border-color: var(--border); }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      color: var(--ink-light);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--ink-light);
+      transition: all 0.3s;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* watercolor blobs */
+    .blob {
+      position: absolute;
+      border-radius: 60% 40% 70% 30% / 50% 60% 40% 70%;
+      filter: blur(45px);
+      pointer-events: none;
+      opacity: 0;
+      animation: blobFade 2s ease forwards;
+    }
+    .blob-1 {
+      width: 420px; height: 320px;
+      top: 8%; left: -5%;
+      background: var(--accent-pink);
+      animation-delay: 0.4s;
+      border-radius: 70% 30% 60% 40% / 40% 60% 30% 70%;
+    }
+    .blob-2 {
+      width: 350px; height: 280px;
+      top: 5%; right: -4%;
+      background: var(--accent-blue);
+      animation-delay: 0.7s;
+      border-radius: 40% 60% 30% 70% / 60% 40% 70% 30%;
+    }
+    .blob-3 {
+      width: 300px; height: 250px;
+      bottom: 10%; left: 5%;
+      background: var(--accent-lavender);
+      animation-delay: 1.0s;
+    }
+    .blob-4 {
+      width: 260px; height: 200px;
+      bottom: 12%; right: 8%;
+      background: var(--accent-yellow);
+      animation-delay: 1.2s;
+      border-radius: 30% 70% 50% 50% / 60% 30% 70% 40%;
+    }
+    .blob-5 {
+      width: 200px; height: 160px;
+      top: 45%; left: 30%;
+      background: rgba(200, 220, 180, 0.25);
+      animation-delay: 0.9s;
+    }
+
+    @keyframes blobFade {
+      to { opacity: 1; }
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      color: var(--ink-xlight);
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.5s forwards;
+    }
+
+    .hero-title {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: clamp(1.6rem, 4.5vw, 3.2rem);
+      line-height: 1.6;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      opacity: 0;
+      animation: fadeUp 1.2s ease 0.8s forwards;
+      max-width: 800px;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15em;
+      color: var(--ink-light);
+    }
+
+    .hero-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--ink-xlight);
+      margin: 2.5rem auto;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.2s forwards;
+    }
+
+    .hero-sub {
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--ink-xlight);
+      font-family: 'Cormorant Garamond', serif;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.4s forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 7rem 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .container-wide {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .section-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      color: var(--ink-xlight);
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1px;
+      background: var(--ink-xlight);
+    }
+
+    /* ── CONCEPT ── */
+    .concept {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+
+    .concept-text {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      line-height: 2.2;
+      letter-spacing: 0.05em;
+      color: var(--ink);
+    }
+
+    .concept-note {
+      margin-top: 2.5rem;
+      font-size: 0.8rem;
+      color: var(--ink-xlight);
+      line-height: 2;
+      border-left: 1px solid var(--border);
+      padding-left: 1.5rem;
+    }
+
+    /* ── MEMBERS ── */
+    .members {
+      background: #f5f4f0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .members-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-top: 1rem;
+    }
+
+    .member-card {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .member-card.visible { opacity: 1; transform: translateY(0); }
+    .member-card:nth-child(2) { transition-delay: 0.15s; }
+
+    .member-avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-pink), var(--accent-blue));
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: rgba(255,255,255,0.8);
+      filter: blur(0);
+      position: relative;
+      overflow: hidden;
+    }
+    .member-card:nth-child(2) .member-avatar {
+      background: linear-gradient(135deg, var(--accent-lavender), var(--accent-yellow));
+    }
+
+    .member-name {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 300;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.3rem;
+    }
+    .member-role {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--ink-xlight);
+      margin-bottom: 1.2rem;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .member-bio {
+      font-size: 0.82rem;
+      line-height: 2;
+      color: var(--ink-light);
+    }
+
+    /* ── FORM ── */
+    .form-section {
+      border-top: 1px solid var(--border);
+    }
+
+    .form-intro {
+      font-size: 0.88rem;
+      color: var(--ink-light);
+      line-height: 2;
+      margin-bottom: 3rem;
+      max-width: 560px;
+    }
+
+    .form-embed {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: white;
+      overflow: hidden;
+    }
+
+    .form-embed iframe {
+      width: 100%;
+      min-height: 680px;
+      border: none;
+      display: block;
+    }
+
+    .form-placeholder {
+      padding: 4rem 3rem;
+      text-align: center;
+      color: var(--ink-xlight);
+    }
+    .form-placeholder-icon {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .form-placeholder p {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      line-height: 2;
+    }
+    .form-placeholder code {
+      display: block;
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      color: var(--ink-xlight);
+      background: #f0eeea;
+      padding: 0.5rem 1rem;
+      border-radius: 2px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── LINKS ── */
+    .links-section {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+    }
+
+    .links-list {
+      list-style: none;
+    }
+    .links-list li {
+      border-bottom: 1px solid var(--border);
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .links-list li.visible { opacity: 1; transform: translateX(0); }
+
+    .links-list a {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      padding: 1.4rem 0;
+      text-decoration: none;
+      color: var(--ink);
+      transition: color 0.3s;
+      gap: 2rem;
+    }
+    .links-list a:hover { color: var(--ink-light); }
+
+    .link-title {
+      font-size: 0.88rem;
+      letter-spacing: 0.05em;
+      flex: 1;
+    }
+    .link-category {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--ink-xlight);
+      white-space: nowrap;
+    }
+    .link-arrow {
+      font-size: 0.7rem;
+      color: var(--ink-xlight);
+      margin-left: 1rem;
+    }
+
+    /* ── COMING SOON ── */
+    .coming-section {
+      background: #f5f4f0;
+      border-top: 1px solid var(--border);
+    }
+
+    /* 共起ネットワーク — フル幅大 */
+    .cooccurrence-block {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: white;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 1px;
+    }
+    .cooccurrence-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 1.8rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .cooccurrence-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      color: var(--ink-xlight);
+      text-transform: uppercase;
+    }
+    .cooccurrence-hint {
+      font-size: 0.68rem;
+      color: var(--ink-xlight);
+      letter-spacing: 0.08em;
+    }
+    #network-canvas {
+      display: block;
+      width: 100%;
+      height: 480px;
+      cursor: grab;
+      touch-action: none;
+    }
+    #network-canvas:active { cursor: grabbing; }
+    .zoom-controls {
+      position: absolute;
+      bottom: 1.2rem;
+      right: 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .zoom-btn {
+      width: 30px; height: 30px;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 1rem;
+      color: var(--ink-light);
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .zoom-btn:hover { background: #f5f4f0; }
+
+    /* 2列ダッシュボード */
+    .dashboard-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      margin-bottom: 1px;
+    }
+    .dashboard-card {
+      background: white;
+      padding: 2rem 2rem 2.5rem;
+    }
+    .dashboard-card-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      color: var(--ink-xlight);
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .dashboard-card-title {
+      font-size: 0.88rem;
+      color: var(--ink);
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+    }
+    .dashboard-placeholder {
+      height: 160px;
+      border: 1px dashed var(--border);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dashboard-placeholder-inner {
+      text-align: center;
+    }
+    .dashboard-placeholder-inner span {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      color: var(--border);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .dashboard-placeholder-inner p {
+      font-size: 0.7rem;
+      color: var(--ink-xlight);
+      letter-spacing: 0.1em;
+    }
+
+    /* 研究進捗 — フル幅小 */
+    .news-block {
+      background: white;
+      border-top: 1px solid var(--border);
+    }
+    .news-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .news-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      color: var(--ink-xlight);
+      text-transform: uppercase;
+    }
+    .news-items-placeholder {
+      padding: 1.5rem 2rem;
+    }
+    .news-item-row {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0.4;
+    }
+    .news-item-row:last-child { border-bottom: none; }
+    .news-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-xlight);
+      white-space: nowrap;
+    }
+    .news-text {
+      font-size: 0.8rem;
+      color: var(--ink-light);
+      letter-spacing: 0.05em;
+    }
+
+    .coming-badge {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      color: var(--ink-xlight);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      color: var(--ink-xlight);
+      max-width: 320px;
+      line-height: 1.8;
+    }
+
+    .footer-copy {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      color: var(--ink-xlight);
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* ── FADE-IN OBSERVER ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── MOBILE NAV OPEN ── */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(250,250,248,0.97);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: 1.4rem;
+      letter-spacing: 0.15em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+
+      .container, .container-wide { padding: 0 1.5rem; }
+
+      section { padding: 5rem 0; }
+
+      .members-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+      .dashboard-row { grid-template-columns: 1fr; }
+
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 1.35rem; }
+      #network-canvas { height: 320px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── WATERCOLOR BLOBS ── -->
+<div class="blob blob-1"></div>
+<div class="blob blob-2"></div>
+<div class="blob blob-3"></div>
+<div class="blob blob-4"></div>
+<div class="blob blob-5"></div>
+
+<!-- ── NAV ── -->
+<nav id="nav">
+  <a href="#" class="nav-logo">INTERVIEW PROJECT</a>
+  <ul class="nav-links">
+    <li><a href="#concept">コンセプト</a></li>
+    <li><a href="#members">メンバー</a></li>
+    <li><a href="#apply">応募する</a></li>
+    <li><a href="#links">リンク</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- mobile menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#concept" class="mob-link">コンセプト</a>
+  <a href="#members" class="mob-link">メンバー</a>
+  <a href="#apply" class="mob-link">応募する</a>
+  <a href="#links" class="mob-link">リンク</a>
+</div>
+
+<!-- ── HERO ── -->
+<header class="hero">
+  <p class="hero-eyebrow">SOCIOLOGICAL INTERVIEW PROJECT</p>
+  <h1 class="hero-title">
+    子どもを持つこと、<br>
+    ペットを飼うこと、<br>
+    肉を食べること
+  </h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">いのちと、ともに生きることへの問い</p>
+</header>
+
+<!-- ── CONCEPT ── -->
+<section class="concept" id="concept">
+  <div class="container">
+    <p class="section-label fade-in">Concept</p>
+    <p class="concept-text fade-in">
+      ここにコンセプトの文章が入ります。この研究企画は、「子どもを持つこと」「ペットを飼うこと」「肉を食べること」という三つのテーマを通じて、私たちがいのちとどのように向き合っているかを問い直す、社会学的インタビュー調査です。<br><br>
+      あなたの経験や考えを、匿名でお聞かせください。
+    </p>
+    <p class="concept-note fade-in">
+      本研究は在野の研究者による自主企画です。<br>
+      取得したデータは研究目的にのみ使用し、個人が特定されないよう匿名化して公表します。
+    </p>
+  </div>
+</section>
+
+<!-- ── MEMBERS ── -->
+<section class="members" id="members">
+  <div class="container">
+    <p class="section-label fade-in">Members</p>
+    <div class="members-grid">
+
+      <div class="member-card">
+        <div class="member-avatar">S</div>
+        <p class="member-name">吉岡 詩織</p>
+        <p class="member-role">Researcher / Interviewer</p>
+        <p class="member-bio">
+          在野の社会学研究者。インタビュー調査を主な手法として、生と死、ケア、いのちの倫理をめぐる問いを探究しています。本プロジェクトの企画・運営・分析を担当。
+        </p>
+      </div>
+
+      <div class="member-card">
+        <div class="member-avatar">Y</div>
+        <p class="member-name">栗林 康弘</p>
+        <p class="member-role">無名人インタビュー 主宰</p>
+        <p class="member-bio">
+          「無名人インタビュー」主宰。名もなき人々の声を丹念に記録するインタビュープロジェクトを運営。本研究企画の共同運営として参加。
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── APPLY ── -->
+<section class="form-section" id="apply">
+  <div class="container">
+    <p class="section-label fade-in">Apply</p>
+    <p class="form-intro fade-in">
+      インタビューへのご参加を募集しています。<br>
+      下記フォームよりお申し込みください。所要時間は1〜2時間程度を予定しています（オンライン実施）。
+    </p>
+
+    <div class="form-embed fade-in">
+      <!-- ↓ Google Form の埋め込みコードをここに貼り付けてください -->
+      <!-- 例: <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" ...></iframe> -->
+      <div class="form-placeholder">
+        <span class="form-placeholder-icon">◇</span>
+        <p>
+          Google フォームを埋め込んでください。<br>
+          Googleフォームの「送信」→「埋め込み」→ iframe コードをコピーして<br>この div 内に貼り付けます。
+        </p>
+        <code>&lt;iframe src="https://docs.google.com/forms/d/e/YOUR_ID/viewform?embedded=true" width="100%" height="680" frameborder="0"&gt;&lt;/iframe&gt;</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMING SOON ── -->
+<section class="coming-section" id="data">
+  <div class="container-wide">
+    <p class="section-label fade-in">Data &amp; Visualization</p>
+
+    <!-- 1. 共起ネットワーク — フル幅大 -->
+    <div class="cooccurrence-block fade-in">
+      <div class="cooccurrence-header">
+        <span class="cooccurrence-label">Visualization / 共起ネットワーク</span>
+        <span class="cooccurrence-hint">ドラッグ・スクロールで移動・拡縮 ／ ノードをクリックで詳細</span>
+      </div>
+      <canvas id="network-canvas"></canvas>
+      <div class="zoom-controls">
+        <button class="zoom-btn" id="zoom-in">＋</button>
+        <button class="zoom-btn" id="zoom-out">－</button>
+        <button class="zoom-btn" id="zoom-reset" title="リセット">⊙</button>
+      </div>
+    </div>
+
+    <!-- 2. 2列ダッシュボード -->
+    <div class="dashboard-row fade-in">
+      <div class="dashboard-card">
+        <p class="dashboard-card-label">Interview / インタビュー参加者</p>
+        <p class="dashboard-card-title">参加者属性ダッシュボード</p>
+        <div class="dashboard-placeholder">
+          <div class="dashboard-placeholder-inner">
+            <span>◈</span>
+            <p>データ公開準備中</p>
+          </div>
+        </div>
+        <span class="coming-badge" style="margin-top:1rem;display:inline-block">準備中</span>
+      </div>
+      <div class="dashboard-card">
+        <p class="dashboard-card-label">Survey / アンケート</p>
+        <p class="dashboard-card-title">回答状況ダッシュボード</p>
+        <div class="dashboard-placeholder">
+          <div class="dashboard-placeholder-inner">
+            <span>◈</span>
+            <p>データ公開準備中</p>
+          </div>
+        </div>
+        <span class="coming-badge" style="margin-top:1rem;display:inline-block">準備中</span>
+      </div>
+    </div>
+
+    <!-- 3. 研究進捗 — フル幅小 -->
+    <div class="news-block fade-in">
+      <div class="news-header">
+        <span class="news-label">News / 研究進捗アップデート</span>
+        <span class="coming-badge">準備中</span>
+      </div>
+      <div class="news-items-placeholder">
+        <div class="news-item-row">
+          <span class="news-date">2025.XX.XX</span>
+          <span class="news-text">研究進捗・ニュースがここに表示されます</span>
+        </div>
+        <div class="news-item-row">
+          <span class="news-date">2025.XX.XX</span>
+          <span class="news-text">インタビュー記事の公開・アンケート集計など</span>
+        </div>
+        <div class="news-item-row">
+          <span class="news-date">2025.XX.XX</span>
+          <span class="news-text">コンテンツ更新のたびにこちらに追加されます</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── LINKS ── -->
+<section class="links-section" id="links">
+  <div class="container">
+    <p class="section-label fade-in">Links</p>
+    <ul class="links-list">
+      <li>
+        <a href="https://note.com/" target="_blank" rel="noopener">
+          <span class="link-title">無名人インタビュー — note</span>
+          <span class="link-category">Note</span>
+          <span class="link-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" target="_blank" rel="noopener">
+          <span class="link-title">「子どもを持つ理由・持たない理由」インタビュー企画（前プロジェクト）</span>
+          <span class="link-category">Note</span>
+          <span class="link-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" target="_blank" rel="noopener">
+          <span class="link-title">アンケート調査（参加者募集）</span>
+          <span class="link-category">Google Form</span>
+          <span class="link-arrow">→</span>
+        </a>
+      </li>
+      <li>
+        <a href="#" target="_blank" rel="noopener">
+          <span class="link-title">研究紹介・参考文献リスト</span>
+          <span class="link-category">Document</span>
+          <span class="link-arrow">→</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <p class="footer-title">
+        子どもを持つこと、ペットを飼うこと、肉を食べること<br>
+        — Sociological Interview Project —
+      </p>
+      <p class="footer-copy">© 2025 吉岡詩織 / 無名人インタビュー</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── NAV SCROLL ──
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ── HAMBURGER ──
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  document.querySelectorAll('.mob-link').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // ── INTERSECTION OBSERVER ──
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in, .member-card, .links-list li').forEach(el => {
+    io.observe(el);
+  });
+
+  // stagger links
+  document.querySelectorAll('.links-list li').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.08}s`;
+  });
+
+  // ── COOCCURRENCE NETWORK ──
+  (function() {
+    const canvas = document.getElementById('network-canvas');
+    const ctx = canvas.getContext('2d');
+
+    // ── データ定義（将来はAPIから差し替え）──
+    const NODES = [
+      { id: 0, label: '子ども',    group: 0, r: 36 },
+      { id: 1, label: 'ペット',    group: 1, r: 30 },
+      { id: 2, label: '肉食',      group: 2, r: 28 },
+      { id: 3, label: '家族',      group: 0, r: 24 },
+      { id: 4, label: '命',        group: 0, r: 22 },
+      { id: 5, label: '愛情',      group: 1, r: 20 },
+      { id: 6, label: '責任',      group: 0, r: 19 },
+      { id: 7, label: '選択',      group: 2, r: 18 },
+      { id: 8, label: '自由',      group: 2, r: 17 },
+      { id: 9, label: '倫理',      group: 2, r: 20 },
+      { id: 10, label: '喪失',     group: 0, r: 16 },
+      { id: 11, label: '癒し',     group: 1, r: 16 },
+      { id: 12, label: '孤独',     group: 0, r: 15 },
+      { id: 13, label: '社会',     group: 2, r: 18 },
+      { id: 14, label: '感情',     group: 1, r: 15 },
+      { id: 15, label: '繁殖',     group: 2, r: 13 },
+      { id: 16, label: '自然',     group: 1, r: 14 },
+      { id: 17, label: 'ケア',     group: 0, r: 17 },
+      { id: 18, label: '苦しみ',   group: 2, r: 13 },
+      { id: 19, label: 'つながり', group: 1, r: 15 },
+    ];
+
+    const EDGES = [
+      [0,3,3],[0,4,3],[0,6,2],[0,12,2],[0,17,3],[0,10,2],
+      [1,5,3],[1,11,3],[1,14,2],[1,19,2],[1,16,2],
+      [2,9,3],[2,7,2],[2,8,2],[2,15,2],[2,18,2],[2,13,2],
+      [0,1,2],[1,2,1],[0,2,1],
+      [4,9,2],[4,17,2],[6,13,2],[5,19,2],[11,17,2],
+      [7,8,2],[7,13,2],[9,18,2],[3,12,2],[16,4,1],
+    ];
+
+    // パステルカラーパレット（グループ0:pink / 1:blue / 2:lavender）
+    const PALETTE = [
+      { fill: 'rgba(230,170,160,0.55)', stroke: 'rgba(210,140,130,0.6)', text: '#7a4040' },
+      { fill: 'rgba(160,195,210,0.55)', stroke: 'rgba(120,165,185,0.6)', text: '#2a5a70' },
+      { fill: 'rgba(190,175,210,0.55)', stroke: 'rgba(155,140,185,0.6)', text: '#4a3a70' },
+    ];
+
+    // ── 物理シミュレーション ──
+    let W, H, dpr;
+    let nodes, edges;
+    let transform = { x: 0, y: 0, scale: 1 };
+    let animFrame;
+    let tooltip = null;
+
+    function initNodes() {
+      const cx = W / 2, cy = H / 2;
+      nodes = NODES.map((n, i) => {
+        const angle = (i / NODES.length) * Math.PI * 2;
+        const dist = 120 + Math.random() * 80;
+        return {
+          ...n,
+          x: cx + Math.cos(angle) * dist,
+          y: cy + Math.sin(angle) * dist,
+          vx: 0, vy: 0,
+        };
+      });
+      edges = EDGES;
+    }
+
+    function resize() {
+      dpr = window.devicePixelRatio || 1;
+      const rect = canvas.parentElement.getBoundingClientRect();
+      W = rect.width;
+      H = parseInt(canvas.style.height || canvas.getAttribute('height') || 480);
+      canvas.width = W * dpr;
+      canvas.height = H * dpr;
+      canvas.style.width = W + 'px';
+      canvas.style.height = H + 'px';
+      ctx.scale(dpr, dpr);
+      if (!nodes) initNodes();
+    }
+
+    function tick() {
+      // repulsion
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = b.x - a.x, dy = b.y - a.y;
+          const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+          const minD = a.r + b.r + 40;
+          if (dist < minD * 2.5) {
+            const f = (minD * 2.5 - dist) / dist * 0.06;
+            a.vx -= dx * f; a.vy -= dy * f;
+            b.vx += dx * f; b.vy += dy * f;
+          }
+        }
+      }
+      // attraction along edges
+      for (const [si, ti, w] of edges) {
+        const a = nodes[si], b = nodes[ti];
+        const dx = b.x - a.x, dy = b.y - a.y;
+        const dist = Math.sqrt(dx*dx + dy*dy) || 1;
+        const ideal = (a.r + b.r) * 2.2 + 10;
+        const f = (dist - ideal) / dist * 0.04 * w;
+        a.vx += dx * f; a.vy += dy * f;
+        b.vx -= dx * f; b.vy -= dy * f;
+      }
+      // center gravity
+      const cx = W / 2, cy = H / 2;
+      for (const n of nodes) {
+        n.vx += (cx - n.x) * 0.003;
+        n.vy += (cy - n.y) * 0.003;
+        n.vx *= 0.82; n.vy *= 0.82;
+        n.x += n.vx; n.y += n.vy;
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      ctx.save();
+      ctx.translate(transform.x, transform.y);
+      ctx.scale(transform.scale, transform.scale);
+
+      // edges
+      for (const [si, ti, w] of edges) {
+        const a = nodes[si], b = nodes[ti];
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.strokeStyle = `rgba(180,170,165,${0.12 + w * 0.06})`;
+        ctx.lineWidth = w * 0.8;
+        ctx.stroke();
+      }
+
+      // nodes
+      for (const n of nodes) {
+        const pal = PALETTE[n.group];
+        // glow
+        const grd = ctx.createRadialGradient(n.x - n.r*0.3, n.y - n.r*0.3, 0, n.x, n.y, n.r * 1.6);
+        grd.addColorStop(0, pal.fill.replace('0.55', '0.08'));
+        grd.addColorStop(1, 'rgba(255,255,255,0)');
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r * 1.6, 0, Math.PI * 2);
+        ctx.fillStyle = grd;
+        ctx.fill();
+
+        // circle
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = pal.fill;
+        ctx.fill();
+        ctx.strokeStyle = pal.stroke;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // label
+        const fontSize = Math.max(9, Math.min(13, n.r * 0.55));
+        ctx.font = `${fontSize}px 'Noto Sans JP', sans-serif`;
+        ctx.fillStyle = pal.text;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText(n.label, n.x, n.y);
+      }
+
+      ctx.restore();
+    }
+
+    let running = true;
+    function loop() {
+      if (!running) return;
+      tick();
+      draw();
+      animFrame = requestAnimationFrame(loop);
+    }
+
+    // ── インタラクション ──
+    // pan / zoom
+    let drag = null;
+    canvas.addEventListener('mousedown', e => {
+      const rect = canvas.getBoundingClientRect();
+      drag = { sx: e.clientX, sy: e.clientY, tx: transform.x, ty: transform.y };
+    });
+    canvas.addEventListener('mousemove', e => {
+      if (drag) {
+        transform.x = drag.tx + (e.clientX - drag.sx);
+        transform.y = drag.ty + (e.clientY - drag.sy);
+      }
+    });
+    canvas.addEventListener('mouseup', () => { drag = null; });
+    canvas.addEventListener('mouseleave', () => { drag = null; });
+
+    canvas.addEventListener('wheel', e => {
+      e.preventDefault();
+      const factor = e.deltaY > 0 ? 0.92 : 1.08;
+      transform.scale = Math.min(4, Math.max(0.3, transform.scale * factor));
+    }, { passive: false });
+
+    // touch
+    let lastTouchDist = null;
+    canvas.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) {
+        drag = { sx: e.touches[0].clientX, sy: e.touches[0].clientY, tx: transform.x, ty: transform.y };
+      }
+    }, { passive: true });
+    canvas.addEventListener('touchmove', e => {
+      if (e.touches.length === 2) {
+        const d = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        if (lastTouchDist) transform.scale = Math.min(4, Math.max(0.3, transform.scale * (d / lastTouchDist)));
+        lastTouchDist = d;
+        drag = null;
+      } else if (drag && e.touches.length === 1) {
+        transform.x = drag.tx + (e.touches[0].clientX - drag.sx);
+        transform.y = drag.ty + (e.touches[0].clientY - drag.sy);
+      }
+    }, { passive: true });
+    canvas.addEventListener('touchend', () => { drag = null; lastTouchDist = null; }, { passive: true });
+
+    // zoom buttons
+    document.getElementById('zoom-in').addEventListener('click', () => {
+      transform.scale = Math.min(4, transform.scale * 1.2);
+    });
+    document.getElementById('zoom-out').addEventListener('click', () => {
+      transform.scale = Math.max(0.3, transform.scale / 1.2);
+    });
+    document.getElementById('zoom-reset').addEventListener('click', () => {
+      transform = { x: 0, y: 0, scale: 1 };
+    });
+
+    // init
+    resize();
+    loop();
+    window.addEventListener('resize', () => { resize(); });
+  })();</script>
+</body>
+</html>
